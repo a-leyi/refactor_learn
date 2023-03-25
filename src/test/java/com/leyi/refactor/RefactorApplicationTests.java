@@ -2,6 +2,7 @@ package com.leyi.refactor;
 
 import com.leyi.refactor.firstcase.Customer;
 import com.leyi.refactor.firstcase.Movie;
+import com.leyi.refactor.firstcase.NewReleasePrice;
 import com.leyi.refactor.firstcase.Rental;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
@@ -24,7 +25,7 @@ class RefactorApplicationTests {
     @Test
     void contextLoads() {
 
-        Movie movie = Movie.builder().title("重构 改善既有代码的设计").priceCode(Movie.NEW_RELEASE).build();
+        Movie movie = Movie.builder().title("重构 改善既有代码的设计").price(new NewReleasePrice()).build();
 
         Rental rental = Rental.builder().movie(movie).daysRented(10).build();
 
@@ -33,6 +34,8 @@ class RefactorApplicationTests {
         Customer customer = Customer.builder().name("乐一").rentals(new Vector<>(rentals)).build();
 
         boolean result = Objects.equals(CONTENT, customer.statement());
+        log.info("statement: {}", customer.statement());
+        log.info("content: {}", CONTENT);
         log.info("result: {}", result);
 
         if (!result) {
